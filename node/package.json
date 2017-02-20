@@ -1,0 +1,10 @@
+{
+  "name": "selenium2-docker",
+  "version": "1.0.0",
+  "description": "Docker composition for Selenium2 NPM Repository",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}

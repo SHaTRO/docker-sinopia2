@@ -1,0 +1,87 @@
+#!/bin/bash
+#
+# sinopia2        Startup script for Sinopia standalone NPM Repo Server
+#
+# chkconfig: - 85 15
+# description: Sinopia2 is a fork of "sinopia", used for local NPM repos
+# processname: sinopia
+# config: /opt/sinopia/conf/config.yml
+# 
+
+# Source function library.
+. /lib/lsb/init-functions
+
+
+compose_sinopia=/usr/local/etc/compose/sinopia
+prog=${prog:-sinopia}
+
+RETVAL=0
+
+
+check_status() {
+    local SERVICE_ID=$(docker-compose ps -q sinopia)
+    local LINE=
+    if [[ ! -z $SERVICE_ID ]]; then
+        LINE=$(docker ps | grep ${SERVICE_ID:0:12})
+    else 
+        return 1
+    fi
+
+    if [[ -z $LINE ]]; then
+        return 1
+    fi
+    return 0
+}
+
+do_status() {
+    local STATVAL
+    check_status
+    STATVAL=$?
+    if [ $STATVAL == 0 ]; then
+        echo $"$prog is running" 
+    else 
+        echo $"$prog is not running"
+    fi
+    RETVAL=$STATVAL
+    return $RETVAL
+}
+
+start() {
+    cd $compose_sinopia
+    docker-compose start sinopia
+    RETVAL=$?
+    log_end_msg $RETVAL
+    return $RETVAL
+}
+
+stop() {
+    docker-compose stop sinopia
+    RETVAL=$?
+    log_end_msg $RETVAL
+    return $RETVAL
+}
+
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+        do_status
+	RETVAL=$?
+	;;
+  restart)
+	stop
+	start
+	;;
+  *)
+	echo $"Usage: $prog {start|stop|restart|status}"
+	exit 1
+esac
+
+exit $RETVAL
+
