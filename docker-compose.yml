@@ -5,8 +5,8 @@ services:
       build: 
         context: .
         args:
-            gid: 129
-            uid: 120
+            gid: 130
+            uid: 130
       ports:
           - 4873:4873
       volumes:
