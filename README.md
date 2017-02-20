@@ -4,10 +4,12 @@ Docker and Compose for Sinopia (npm install sinopia2) fork maintained by fl4re (
 ## Setup
 1. Be sure you have docker-compose.  There is a script to install it here: [install-docker-compose](https://gist.github.com/SHaTRO/dbf0d02984156adfd83d0d1f17b2c5fe).
 2. Prepare a local volume and user to use with the service (you can easily maintain from the host this way):
-    `sudo mkdir -p /opt/sinopia`  
-    `sudo addgroup --gid 130 sinopia`  
-    `sudo adduser --disabled-password --home /opt/sinopia --gid 130 --uid 130 --gecos "Sinopia NPM Repository" sinopia`  
-    `sudo chown -R sinopia:sinopia /opt/sinopia`  
+    ```bash
+sudo mkdir -p /opt/sinopia  
+sudo addgroup --gid 130 sinopia  
+sudo adduser --disabled-password --home /opt/sinopia --gid 130 --uid 130 --gecos "Sinopia NPM Repository" sinopia  
+sudo chown -R sinopia:sinopia /opt/sinopia
+```
 3. Prepare the sinopia build context (suggested):
     `sudo mkdir -p /usr/local/etc/compose/sinopia`  
     `sudo chown \`id -u\`:\`id -g\` /usr/local/etc/compose/sinopia`  
